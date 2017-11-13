@@ -40,7 +40,45 @@ def get_auth_token():
     token = g.user.generate_auth_token()
     return jsonify({'token': token.decode('ascii')})
 
+@app.route('/')
+@app.route('catalog')
+def viewCategories():
+    #this is the main page of the app that displays a list of categories and the latest items added.
+    #One template for username and one without
+    categories = session.query(Category).all()
+    return render_template('.html', categories=categories)
 
+@app.route('/catalog/<string:cat_name>')
+@app.route('/catalog/<string:cat_name>/items')
+def viewIndividual(cat_name):
+    #this is the page that will view all items inside a specific category
+    #One template for username and one without
+
+
+
+@app.route('/catalog/<string:cat_name>/<string:item_name>')
+def viewDescription(cat_name,item_name):
+    #this page will be for viewing the description of an items
+    #One template for username and one without
+    category = session.query(Category).filter_by(name=cat_name).one()
+    items = session.query(Item).filter_by(category_id = category.id).all()
+    return render_template('.html', items = items, category = category)
+
+@app.route('/catalog/<string:item_name>/edit')
+@auth.login_required
+def itemEdit(item_name):
+    #this page will be for editing an ITEM
+
+@app.route('/catalog/<string:item_name>/delete')
+@auth.login_required
+def itemDelete(item_name):
+    #this page will be for deleting an ITEM
+
+@app.route('/catalog/JSON')
+def apiEnd():
+    #returns all items in json format
+    categories = session.query(Category).all()
+    return jsonify(categories=[c.serialize for c in categories])
 
 @app.route('/users', methods = ['POST'])
 def new_user():
