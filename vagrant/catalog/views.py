@@ -1,23 +1,33 @@
 from models import Base, User
-from flask import Flask, jsonify, request, url_for, abort, g
+from flask import Flask, jsonify, request, url_for, abort, g, render_template, redirect
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
+from models import Base, User, Item, Category
+#may change models import if database name changes
 
-from flask.ext.httpauth import HTTPBasicAuth
+from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
 
+#engine = create_engine('sqlite:///itemCatalog.db')
 
-engine = create_engine('sqlite:///itemCatalog.db')
-
-Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
+# Base.metadata.bind = engine
+# DBSession = sessionmaker(bind=engine)
+# session = DBSession()
 app = Flask(__name__)
 
+# TODO: Google OAUTH
+# TODO: API rate limiting?
+# TODO: logout page
+# TODO: API endpoint for individual category
+# TODO: API endpoint for individual item
 
 
-
+#Fake categories/items
+category = {'name' : 'Snowbaoarding', 'id' : '1'}
+categories = [{'name' : 'Snowbaoarding', 'id' : '1'},{'name' : 'Soccer', 'id' : '2'},{'name' : 'Baseball', 'id' : '3'}]
+item = {'name':'Snowboard','id':'1','description':'goofy style'}
+items = [{'name':'Snowboard','id':'1','description':'goofy style'},{'name':'ball','id':'2','description':'jabulani'},{'name':'bat','id':'3','description':'mizuno'}]
 
 @auth.verify_password
 def verify_password(username_or_token, password):
@@ -32,8 +42,6 @@ def verify_password(username_or_token, password):
     g.user = user
     return True
 
-
-
 @app.route('/token')
 @auth.login_required
 def get_auth_token():
@@ -41,47 +49,141 @@ def get_auth_token():
     return jsonify({'token': token.decode('ascii')})
 
 @app.route('/')
-@app.route('catalog')
+@app.route('/catalog')
 def viewCategories():
     #this is the main page of the app that displays a list of categories and the latest items added.
-    #One template for username and one without
-    categories = session.query(Category).all()
-    return render_template('.html', categories=categories)
+    # TODO: One template for username and one without
+
+    #categories = session.query(Category).all()
+
+    return render_template('categories.html', categories=categories)
 
 @app.route('/catalog/<string:cat_name>')
 @app.route('/catalog/<string:cat_name>/items')
 def viewIndividual(cat_name):
     #this is the page that will view all items inside a specific category
-    #One template for username and one without
 
 
+    #category = session.query(Category).filter_by(name = cat_name).one()
+    #items = session.query(Item).filter_by(category_id = category.id).all()
+
+
+    # TODO: check for error in category.id
+    return render_template('items.html', category = category, items = items)
+    # TODO: One template for username and one without
 
 @app.route('/catalog/<string:cat_name>/<string:item_name>')
 def viewDescription(cat_name,item_name):
     #this page will be for viewing the description of an items
-    #One template for username and one without
-    category = session.query(Category).filter_by(name=cat_name).one()
-    items = session.query(Item).filter_by(category_id = category.id).all()
-    return render_template('.html', items = items, category = category)
+    # TODO: One template for username and one without
+    # TODO: check relationship between item and category
 
-@app.route('/catalog/<string:item_name>/edit')
+    #category = session.query(Category).filter_by(name=cat_name).one()
+    #item = session.query(Item).filter_by(name = item_name).one()
+
+
+    # TODO: check for error in category.id
+    return render_template('item.html', items = items, category = category)
+
+@app.route('/catalog/<string:cat_name>/create', methods=['GET', 'POST'])
+@auth.login_required
+def itemCreate(cat_name):
+    #this page will be for creating an ITEM
+
+    if request.method == 'POST':
+        if request.form['name'] and request.form['description'] and request.form['category']:
+            newItem.name = request.form['name']
+            newItem.description = request.form['description']
+            newItem.category = request.form['category']
+            session.add(newItem)
+            session.commit()
+            return redirect(url_for('category', cat_name = category))
+        else:
+        # TODO: possible error test for category_id change as well
+
+
+            # TODO: error ridirect to page
+            return None
+    else:
+        # TODO: pass in category names for dropdown box
+        return render_template('newItem.html', cat_name = cat_name)
+
+@app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
 @auth.login_required
 def itemEdit(item_name):
     #this page will be for editing an ITEM
 
-@app.route('/catalog/<string:item_name>/delete')
+
+    #editItem = session.query(Item).filter_by(name = item_name).one()
+    editItem = item
+
+
+    if request.method == 'POST':
+        if request.form['name']:
+            editItem.name = request.form['name']
+        if request.form['description']:
+            editItem.description = request.form['description']
+        if request.form['category']:
+            editItem.category = request.form['category']
+        session.add(editItem)
+        session.commit()
+        return redirect(url_for('category', cat_name = category))
+        # TODO: possible error test for category_id change as well
+    else:
+        # TODO: pass in category names for dropdown box
+        return render_template('editItem.html', item_name = item_name)
+
+@app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
 @auth.login_required
 def itemDelete(item_name):
     #this page will be for deleting an ITEM
 
+
+    #deleteItem = session.query(Item).filter_by(name = item_name).one()
+    deleteItem = item
+
+    if request.method == 'POST':
+        session.delete(deleteItem)
+        session.commit()
+        return redirect(url_for('category', cat_name = category))
+        # TODO: possible error test for category_id change as well
+    else:
+        return render_template('deleteItem.html', item_name = item_name)
+
 @app.route('/catalog/JSON')
-def apiEnd():
+def apiAll():
     #returns all items in json format
-    categories = session.query(Category).all()
+
+
+    #categories = session.query(Category).all()
+
+
     return jsonify(categories=[c.serialize for c in categories])
+    # TODO: test format of JSON endpoint
+
+@app.route('/catalog/<string:cat_name>/JSON')
+def apiCategory(cat_name):
+
+
+    #category = session.query(Category).filter_by(name = cat_name).one()
+    #items = session.query(Item).filter_by(category_id = category.id).all()
+
+
+    return jsonify(item = [i.serialize for i in items])
+
+@app.route('/catalog/<string:cat_name>/<string:item_name>/JSON')
+def apiItem(cat_name,item_name):
+
+
+    #category = session.query(Category).filter_by(name = cat_name).one()
+    #item = session.query(Item).filter_by(category_id = category.id).all()
+
+
+    return jsonify(item = item.serialize)
 
 @app.route('/users', methods = ['POST'])
 def new_user():
+    # TODO: redirect to categories page with message flash
     username = request.json.get('username')
     password = request.json.get('password')
     if username is None or password is None:
@@ -91,25 +193,14 @@ def new_user():
     if session.query(User).filter_by(username = username).first() is not None:
         print "existing user"
         user = session.query(User).filter_by(username=username).first()
-        return jsonify({'message':'user already exists'}), 200#, {'Location': url_for('get_user', id = user.id, _external = True)}
+        return jsonify({'message':'user already exists'}), 200, {'Location': url_for('get_user', id = user.id, _external = True)}
 
     user = User(username = username)
     user.hash_password(password)
     session.add(user)
     session.commit()
-    return jsonify({ 'username': user.username }), 201#, {'Location': url_for('get_user', id = user.id, _external = True)}
+    return jsonify({ 'username': user.username }), 201, {'Location': url_for('get_user', id = user.id, _external = True)}
 
-@app.route('/api/users/<int:id>')
-def get_user(id):
-    user = session.query(User).filter_by(id=id).one()
-    if not user:
-        abort(400)
-    return jsonify({'username': user.username})
-
-@app.route('/api/resource')
-@auth.login_required
-def get_resource():
-    return jsonify({ 'data': 'Hello, %s!' % g.user.username })
 
 
 

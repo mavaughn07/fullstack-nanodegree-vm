@@ -1,7 +1,7 @@
 from sqlalchemy import Column,Integer,String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, ForeignKey
 from passlib.apps import custom_app_context as pwd_context
 import random, string
 from itsdangerous import(TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
@@ -59,7 +59,7 @@ class Item(Base):
     __tablename__ = 'item'
 
 
-    name =Column(String(80), nullable = False, index)
+    name =Column(String(80), nullable = False, index=True)
     id = Column(Integer, primary_key = True)
     description = Column(String(250))
     category_id = Column(Integer,ForeignKey('category.id'))
