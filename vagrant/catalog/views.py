@@ -9,11 +9,11 @@ from models import Base, User, Item, Category
 from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
 
-#engine = create_engine('sqlite:///itemCatalog.db')
+engine = create_engine('sqlite:///itemCatalog.db')
 
-# Base.metadata.bind = engine
-# DBSession = sessionmaker(bind=engine)
-# session = DBSession()
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
 app = Flask(__name__)
 
 # TODO: Google OAUTH
@@ -54,7 +54,7 @@ def viewCategories():
     #this is the main page of the app that displays a list of categories and the latest items added.
     # TODO: One template for username and one without
 
-    #categories = session.query(Category).all()
+    categories = session.query(Category).all()
 
     return render_template('categories.html', categories=categories)
 
@@ -64,8 +64,8 @@ def viewIndividual(cat_name):
     #this is the page that will view all items inside a specific category
 
 
-    #category = session.query(Category).filter_by(name = cat_name).one()
-    #items = session.query(Item).filter_by(category_id = category.id).all()
+    category = session.query(Category).filter_by(name = cat_name).first()
+    items = session.query(Item).filter_by(category_id = category.id).all()
 
 
     # TODO: check for error in category.id
@@ -78,15 +78,15 @@ def viewDescription(cat_name,item_name):
     # TODO: One template for username and one without
     # TODO: check relationship between item and category
 
-    #category = session.query(Category).filter_by(name=cat_name).one()
-    #item = session.query(Item).filter_by(name = item_name).one()
+    category = session.query(Category).filter_by(name=cat_name).first()
+    item = session.query(Item).filter_by(name = item_name).one()
 
 
     # TODO: check for error in category.id
     return render_template('item.html', items = items, category = category)
 
 @app.route('/catalog/<string:cat_name>/create', methods=['GET', 'POST'])
-@auth.login_required
+# @auth.login_required
 def itemCreate(cat_name):
     #this page will be for creating an ITEM
 
@@ -114,7 +114,7 @@ def itemEdit(item_name):
     #this page will be for editing an ITEM
 
 
-    #editItem = session.query(Item).filter_by(name = item_name).one()
+    editItem = session.query(Item).filter_by(name = item_name).first()
     editItem = item
 
 
@@ -139,7 +139,7 @@ def itemDelete(item_name):
     #this page will be for deleting an ITEM
 
 
-    #deleteItem = session.query(Item).filter_by(name = item_name).one()
+    deleteItem = session.query(Item).filter_by(name = item_name).first()
     deleteItem = item
 
     if request.method == 'POST':
@@ -150,33 +150,35 @@ def itemDelete(item_name):
     else:
         return render_template('deleteItem.html', item_name = item_name)
 
-@app.route('/catalog/JSON')
+@app.route('/api.json')
 def apiAll():
     #returns all items in json format
+    cat = []
+    categories = session.query(Category).all()
+    for c in categories:
+        c = c.serialize
+        c['Item'] = [i.serialize for i in session.query(Item).filter_by(category_id = c['id']).all()]
+        cat.append(c)
 
-
-    #categories = session.query(Category).all()
-
-
-    return jsonify(categories=[c.serialize for c in categories])
+    return jsonify(Category=cat)
     # TODO: test format of JSON endpoint
 
-@app.route('/catalog/<string:cat_name>/JSON')
+@app.route('/api/<string:cat_name>.json')
 def apiCategory(cat_name):
 
 
-    #category = session.query(Category).filter_by(name = cat_name).one()
-    #items = session.query(Item).filter_by(category_id = category.id).all()
+    category = session.query(Category).filter_by(name = cat_name).first()
+    items = session.query(Item).filter_by(category_id = category.id).all()
 
 
     return jsonify(item = [i.serialize for i in items])
 
-@app.route('/catalog/<string:cat_name>/<string:item_name>/JSON')
+@app.route('/api/<string:cat_name>/<string:item_name>.json')
 def apiItem(cat_name,item_name):
 
 
-    #category = session.query(Category).filter_by(name = cat_name).one()
-    #item = session.query(Item).filter_by(category_id = category.id).all()
+    category = session.query(Category).filter_by(name = cat_name).first()
+    item = session.query(Item).filter_by(category_id = category.id).all()
 
 
     return jsonify(item = item.serialize)
