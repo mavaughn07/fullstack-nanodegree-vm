@@ -46,13 +46,15 @@ class Category(Base):
     name = Column(String(250), nullable=False, index=True)
     user_id = Column(Integer,ForeignKey('user.id'))
     user = relationship(User)
+    items = relationship("Item", back_populates="category")
 
     @property
     def serialize(self):
        """Return object data in easily serializeable format"""
        return {
-           'name'         : self.name,
-           'id'           : self.id
+           'name' : self.name,
+           'id' : self.id,
+           'Items' : [item.serialize for item in self.items]
        }
 
 class Item(Base):
@@ -63,7 +65,7 @@ class Item(Base):
     id = Column(Integer, primary_key = True)
     description = Column(String(250))
     category_id = Column(Integer,ForeignKey('category.id'))
-    category = relationship(Category)
+    category = relationship("Category", back_populates="items")
     user_id = Column(Integer,ForeignKey('user.id'))
     user = relationship(User)
 

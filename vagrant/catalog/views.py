@@ -153,15 +153,10 @@ def itemDelete(item_name):
 @app.route('/api.json')
 def apiAll():
     #returns all items in json format
-    cat = []
-    categories = session.query(Category).all()
-    for c in categories:
-        c = c.serialize
-        c['Item'] = [i.serialize for i in session.query(Item).filter_by(category_id = c['id']).all()]
-        cat.append(c)
 
-    return jsonify(Category=cat)
-    # TODO: test format of JSON endpoint
+    categories = session.query(Category).all()
+    return jsonify(Category = [c.serialize for c in categories])
+
 
 @app.route('/api/<string:cat_name>.json')
 def apiCategory(cat_name):
