@@ -258,12 +258,6 @@ item1 = Item(name="Lamb Curry", description="Slow cook that thang in a pool of t
 session.add(item1)
 session.commit()
 
-item2 = Item(name="Chicken Marsala", description="Chicken cooked in Marsala wine sauce with mushrooms",
-                     category=category1)
-
-session.add(item2)
-session.commit()
-
 # item3 = Item(name="Potstickers", description="Delicious chicken and veggies encapsulated in fried dough.",
 #                      price="$6.50", course="Appetizer", category=category1)
 #

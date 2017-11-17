@@ -2,7 +2,7 @@ from models import Base, User
 from flask import Flask, jsonify, request, url_for, abort, g, render_template, redirect
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, desc
 from models import Base, User, Item, Category
 #may change models import if database name changes
 
@@ -55,21 +55,21 @@ def viewCategories():
     # TODO: One template for username and one without
 
     categories = session.query(Category).all()
-
-    return render_template('categories.html', categories=categories)
+    items = session.query(Item).order_by(desc("id")).limit(10).all()
+    return render_template('categories.html', categories=categories, latestItems=items)
 
 @app.route('/catalog/<string:cat_name>')
 @app.route('/catalog/<string:cat_name>/items')
 def viewIndividual(cat_name):
     #this is the page that will view all items inside a specific category
 
-
+    categories = session.query(Category).all()
     category = session.query(Category).filter_by(name = cat_name).first()
     items = session.query(Item).filter_by(category_id = category.id).all()
 
 
     # TODO: check for error in category.id
-    return render_template('items.html', category = category, items = items)
+    return render_template('items.html', category = category, items = items, categories = categories)
     # TODO: One template for username and one without
 
 @app.route('/catalog/<string:cat_name>/<string:item_name>')
