@@ -19,8 +19,15 @@ app = Flask(__name__)
 # TODO: Google OAUTH
 # TODO: API rate limiting?
 # TODO: logout page
-# TODO: API endpoint for individual category
-# TODO: API endpoint for individual item
+# TODO: on items.html Jquery to change item from (1 items) to (1 item)
+# TODO: adding items
+# TODO: editing items
+# TODO: deleting items
+# TODO: different pages while logged in
+# TODO: home buttonns on templates?
+# TODO: if <string:cat_name or item_name> results == none : render error template
+# TODO: container max-width for templates in place of offset\
+
 
 
 #Fake categories/items
@@ -83,7 +90,7 @@ def viewDescription(cat_name,item_name):
 
 
     # TODO: check for error in category.id
-    return render_template('item.html', items = items, category = category)
+    return render_template('item.html', item = item)
 
 @app.route('/catalog/<string:cat_name>/create', methods=['GET', 'POST'])
 # @auth.login_required

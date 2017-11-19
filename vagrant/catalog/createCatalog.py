@@ -88,35 +88,35 @@ session.add(category2)
 session.commit()
 
 
-item1 = Item(name="Soccerball", description="With your choice of noodles vegetables and sauces",
+item1 = Item(name="Soccerball", description="",
                      category=category2)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(
-    name="Cleats", description=" A famous duck dish from Beijing[1] that has been prepared since the imperial era. The meat is prized for its thin, crisp skin, with authentic versions of the dish serving mostly the skin and little meat, sliced in front of the diners by the cook", category=category2)
+    name="Cleats", description="", category=category2)
 
 session.add(item2)
 session.commit()
 
-item3 = Item(name="Spicy Tuna Roll", description="Seared rare ahi, avocado, edamame, cucumber with wasabi soy sauce ",
+item3 = Item(name="Goalie Gloves", description="",
                      category=category2)
 
 session.add(item3)
 session.commit()
 
-item4 = Item(name="Nepali Momo ", description="Steamed dumplings made with vegetables, spices and meat. ",
+item4 = Item(name="Shinguards", description="",
                      category=category2)
 
 session.add(item4)
 session.commit()
 
-item5 = Item(name="Beef Noodle Soup", description="A Chinese noodle soup made of stewed or red braised beef, beef broth, vegetables and Chinese noodles.",
-                     category=category2)
+# item5 = Item(name="Beef Noodle Soup", description="A Chinese noodle soup made of stewed or red braised beef, beef broth, vegetables and Chinese noodles.",
+#                      category=category2)
 
-session.add(item5)
-session.commit()
+# session.add(item5)
+# session.commit()
 
 # item6 = Item(name="Ramen", description="a Japanese noodle soup dish. It consists of Chinese-style wheat noodles served in a meat- or (occasionally) fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork, dried seaweed, kamaboko, and green onions.",
 #                      price="12", course="Entree", category=category2)
@@ -132,25 +132,25 @@ session.add(category1)
 session.commit()
 
 
-item1 = Item(name="Pho", description="a Vietnamese noodle soup consisting of broth, linguine-shaped rice noodles called banh pho, a few herbs, and meat.",
+item1 = Item(name="Bat", description="",
                      category=category1)
 
 session.add(item1)
 session.commit()
 
-item2 = Item(name="Chinese Dumplings", description="a common Chinese dumpling which generally consists of minced meat and finely chopped vegetables wrapped into a piece of dough skin. The skin can be either thin and elastic or thicker.",
+item2 = Item(name="Mitt", description="",
                      category=category1)
 
 session.add(item2)
 session.commit()
 
-item3 = Item(name="Gyoza", description="The most prominent differences between Japanese-style gyoza and Chinese-style jiaozi are the rich garlic flavor, which is less noticeable in the Chinese version, the light seasoning of Japanese gyoza with salt and soy sauce, and the fact that gyoza wrappers are much thinner",
+item3 = Item(name="Baseball", description="",
                      category=category1)
 
 session.add(item3)
 session.commit()
 
-item4 = Item(name="Stinky Tofu", description="Taiwanese dish, deep fried fermented tofu served with pickled cabbage.",
+item4 = Item(name="Batting Helmet", description="",
                      category=category1)
 
 session.add(item4)
@@ -170,23 +170,23 @@ session.add(category1)
 session.commit()
 
 
-item1 = Item(name="Tres Leches Cake", description="Rich, luscious sponge cake soaked in sweet milk and topped with vanilla bean whipped cream and strawberries.",
+item1 = Item(name="Tennis Racquet", description="",
                      category=category1)
 
 session.add(item1)
 session.commit()
 
-item2 = Item(name="Mushroom risotto", description="Portabello mushrooms in a creamy risotto",
+item2 = Item(name="Tennisball", description="",
                      category=category1)
 
 session.add(item2)
 session.commit()
 
-item3 = Item(name="Honey Boba Shaved Snow", description="Milk snow layered with honey boba, jasmine tea jelly, grass jelly, caramel, cream, and freshly made mochi",
-                     category=category1)
-
-session.add(item3)
-session.commit()
+# item3 = Item(name="Honey Boba Shaved Snow", description="Milk snow layered with honey boba, jasmine tea jelly, grass jelly, caramel, cream, and freshly made mochi",
+#                      category=category1)
+#
+# session.add(item3)
+# session.commit()
 
 # item4 = Item(name="Cauliflower Manchurian", description="Golden fried cauliflower florets in a midly spiced soya,garlic sauce cooked with fresh cilantro, celery, chilies,ginger & green onions",
 #                      price="$6.95", course="Appetizer", category=category1)
@@ -214,13 +214,13 @@ session.add(category1)
 session.commit()
 
 
-item1 = Item(name="Shellfish Tower", description="Lobster, shrimp, sea snails, crawfish, stacked into a delicious tower",
+item1 = Item(name="Basketball", description="",
                      category=category1)
 
 session.add(item1)
 session.commit()
 
-item2 = Item(name="Chicken and Rice", description="Chicken... and rice",
+item2 = Item(name="Net", description="",
                      category=category1)
 
 session.add(item2)
@@ -252,7 +252,7 @@ session.add(category1)
 session.commit()
 
 
-item1 = Item(name="Lamb Curry", description="Slow cook that thang in a pool of tomatoes, onions and alllll those tasty Indian spices. Mmmm.",
+item1 = Item(name="Pads", description="",
                      category=category1)
 
 session.add(item1)

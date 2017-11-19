@@ -1,10 +1,41 @@
+
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='styles.css')}}">
     <meta charset="utf-8">
-    <title></title>
+    <title>{{item.name}} Items</title>
   </head>
+  <header>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-1">
+          <h1><b>Catalog App</b></h1>
+      </div>
+      <div class="col-md-1">
+        <h1></h1>
+        <form action="/login" method="get">
+          <button class="btn login" type="submit" name="Login">Login</button>
+        </form>
+      </div>
+    </div>
+
+  </header>
   <body>
-    <p>this page will be used for displaying the description of the item</p>
+    <div class="flexible-container">
+      <div class="row col-md-9 col-md-offset-1 main">
+        <div class="col-md-11">
+         <h3><b>{{item.name}}</b></h3>
+
+          <div class="item-description">
+           <span>
+            Description: <span>{{item.description}}</span>
+            </span>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
   </body>
 </html>
