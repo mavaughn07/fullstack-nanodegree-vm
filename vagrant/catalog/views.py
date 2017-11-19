@@ -20,7 +20,6 @@ app = Flask(__name__)
 # TODO: API rate limiting?
 # TODO: logout page
 # TODO: on items.html Jquery to change item from (1 items) to (1 item)
-# TODO: editing items
 # TODO: deleting items
 # TODO: different pages while logged in
 # TODO: home buttonns on templates?
@@ -75,8 +74,6 @@ def viewIndividual(cat_name):
     category = session.query(Category).filter_by(name = cat_name).first()
     items = session.query(Item).filter_by(category_id = category.id).all()
 
-
-    # TODO: check for error in category.id
     return render_template('items.html', category = category, items = items, categories = categories)
     # TODO: One template for username and one without
 
@@ -84,13 +81,10 @@ def viewIndividual(cat_name):
 def viewDescription(cat_name,item_name):
     #this page will be for viewing the description of an items
     # TODO: One template for username and one without
-    # TODO: check relationship between item and category
 
     category = session.query(Category).filter_by(name=cat_name).first()
     item = session.query(Item).filter_by(name = item_name).one()
 
-
-    # TODO: check for error in category.id
     return render_template('item.html', item = item)
 
 @app.route('/catalog/<string:cat_name>/create', methods=['GET', 'POST'])
@@ -106,13 +100,10 @@ def itemCreate(cat_name):
             session.commit()
             return redirect(url_for('viewIndividual', cat_name = category.name))
         else:
-        # TODO: possible error test for category_id change as well
-
 
             # TODO: error ridirect to page
             return None
     else:
-        # TODO: pass in category names for dropdown box
         return render_template('newItem.html', category= category)
 
 @app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
@@ -120,12 +111,10 @@ def itemCreate(cat_name):
 def itemEdit(item_name):
     #this page will be for editing an ITEM
 
-
     editItem = session.query(Item).filter_by(name = item_name).first()
     categories = session.query(Category).all()
 
     if request.method == 'POST':
-        # TODO: request.form['category'] retruning as NONE
         category = session.query(Category).filter_by(name=request.form['category']).first()
         if request.form['name']:
             editItem.name = request.form['name']
@@ -136,9 +125,7 @@ def itemEdit(item_name):
         session.add(editItem)
         session.commit()
         return redirect(url_for('viewIndividual', cat_name = category.name))
-        # TODO: possible error test for category_id change as well
     else:
-        # TODO: pass in category names for dropdown box
         return render_template('editItem.html', item = editItem, categories=categories)
 
 @app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
@@ -154,7 +141,6 @@ def itemDelete(item_name):
         session.delete(deleteItem)
         session.commit()
         return redirect(url_for('category', cat_name = category))
-        # TODO: possible error test for category_id change as well
     else:
         return render_template('deleteItem.html', item_name = item_name)
 
@@ -165,24 +151,19 @@ def apiAll():
     categories = session.query(Category).all()
     return jsonify(Category = [c.serialize for c in categories])
 
-
 @app.route('/api/<string:cat_name>.json')
 def apiCategory(cat_name):
 
-
     category = session.query(Category).filter_by(name = cat_name).first()
     items = session.query(Item).filter_by(category_id = category.id).all()
-
 
     return jsonify(item = [i.serialize for i in items])
 
 @app.route('/api/<string:cat_name>/<string:item_name>.json')
 def apiItem(cat_name,item_name):
 
-
     category = session.query(Category).filter_by(name = cat_name).first()
     item = session.query(Item).filter_by(category_id = category.id).all()
-
 
     return jsonify(item = item.serialize)
 
@@ -205,9 +186,6 @@ def new_user():
     session.add(user)
     session.commit()
     return jsonify({ 'username': user.username }), 201, {'Location': url_for('get_user', id = user.id, _external = True)}
-
-
-
 
 if __name__ == '__main__':
     app.debug = True
