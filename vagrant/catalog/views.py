@@ -113,34 +113,33 @@ def itemCreate(cat_name):
             return None
     else:
         # TODO: pass in category names for dropdown box
-
-        print category
         return render_template('newItem.html', category= category)
 
 @app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
-@auth.login_required
+# @auth.login_required
 def itemEdit(item_name):
     #this page will be for editing an ITEM
 
 
     editItem = session.query(Item).filter_by(name = item_name).first()
-    editItem = item
-
+    categories = session.query(Category).all()
 
     if request.method == 'POST':
+        # TODO: request.form['category'] retruning as NONE
+        category = session.query(Category).filter_by(name=request.form['category']).first()
         if request.form['name']:
             editItem.name = request.form['name']
         if request.form['description']:
             editItem.description = request.form['description']
         if request.form['category']:
-            editItem.category = request.form['category']
+            editItem.category = category
         session.add(editItem)
         session.commit()
-        return redirect(url_for('category', cat_name = category))
+        return redirect(url_for('viewIndividual', cat_name = category.name))
         # TODO: possible error test for category_id change as well
     else:
         # TODO: pass in category names for dropdown box
-        return render_template('editItem.html', item_name = item_name)
+        return render_template('editItem.html', item = editItem, categories=categories)
 
 @app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
 @auth.login_required

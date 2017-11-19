@@ -1,10 +1,56 @@
+
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='styles.css')}}">
     <meta charset="utf-8">
-    <title></title>
+    <title>{{item.name}}</title>
   </head>
+  <header>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-1">
+          <h1><b>Catalog App</b></h1>
+      </div>
+      <div class="col-md-1">
+        <h1></h1>
+        <form action="/login" method="get">
+          <button class="btn login" type="submit" name="Login">Login</button>
+        </form>
+      </div>
+    </div>
+
+  </header>
   <body>
-    <p>this page will be for editing an items name/description/category</p>
+    <div class="flexible-container">
+      <div class="row col-md-9 col-md-offset-1 main">
+        <div class="col-md-11">
+         <h3><b>
+           <span>Edit </span>
+           <span>{{item.name}}</span>
+          </b></h3>
+
+          <div class="editItem">
+            <form class="editItem" action="{{url_for('itemEdit',
+            item_name=item.name)}}" method="POST">
+
+                Name:<br>
+                <input type="text" name="name" placeholder={{item.name}}><br><br>
+                Description:<br>
+                <input type="text" name="description" placeholder={{item.description}}><br><br>
+                <select name="category">
+                  {% for c in categories %}
+                    <option value="category">{{c.name}}</option>
+                  {% endfor %}
+                </select>
+                <input type="submit" value="Submit">
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+
   </body>
 </html>
