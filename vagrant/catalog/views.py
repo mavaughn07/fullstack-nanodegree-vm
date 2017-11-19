@@ -20,13 +20,14 @@ app = Flask(__name__)
 # TODO: API rate limiting?
 # TODO: logout page
 # TODO: on items.html Jquery to change item from (1 items) to (1 item)
-# TODO: adding items
 # TODO: editing items
 # TODO: deleting items
 # TODO: different pages while logged in
 # TODO: home buttonns on templates?
 # TODO: if <string:cat_name or item_name> results == none : render error template
-# TODO: container max-width for templates in place of offset\
+# TODO: container max-width for templates in place of offset
+# TODO: add message flashing
+# TODO: add verification that item being created is not currently in the database
 
 
 
@@ -96,15 +97,14 @@ def viewDescription(cat_name,item_name):
 # @auth.login_required
 def itemCreate(cat_name):
     #this page will be for creating an ITEM
-
+    category = session.query(Category).filter_by(name = cat_name).first()
     if request.method == 'POST':
-        if request.form['name'] and request.form['description'] and request.form['category']:
-            newItem.name = request.form['name']
-            newItem.description = request.form['description']
-            newItem.category = request.form['category']
+        if request.form['name'] and request.form['description'] and category.name:
+            newItem = Item(name=request.form['name'],
+                    description=request.form['description'], category=category)
             session.add(newItem)
             session.commit()
-            return redirect(url_for('category', cat_name = category))
+            return redirect(url_for('viewIndividual', cat_name = category.name))
         else:
         # TODO: possible error test for category_id change as well
 
@@ -113,7 +113,9 @@ def itemCreate(cat_name):
             return None
     else:
         # TODO: pass in category names for dropdown box
-        return render_template('newItem.html', cat_name = cat_name)
+
+        print category
+        return render_template('newItem.html', category= category)
 
 @app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
 @auth.login_required
