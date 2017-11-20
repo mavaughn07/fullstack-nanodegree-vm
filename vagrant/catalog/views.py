@@ -27,14 +27,6 @@ app = Flask(__name__)
 # TODO: add message flashing
 # TODO: add verification that item being created is not currently in the database
 
-
-
-#Fake categories/items
-category = {'name' : 'Snowbaoarding', 'id' : '1'}
-categories = [{'name' : 'Snowbaoarding', 'id' : '1'},{'name' : 'Soccer', 'id' : '2'},{'name' : 'Baseball', 'id' : '3'}]
-item = {'name':'Snowboard','id':'1','description':'goofy style'}
-items = [{'name':'Snowboard','id':'1','description':'goofy style'},{'name':'ball','id':'2','description':'jabulani'},{'name':'bat','id':'3','description':'mizuno'}]
-
 @auth.verify_password
 def verify_password(username_or_token, password):
     #Try to see if it's a token first
