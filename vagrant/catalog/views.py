@@ -26,6 +26,9 @@ app = Flask(__name__)
 # TODO: container max-width for templates in place of offset
 # TODO: add message flashing
 # TODO: add verification that item being created is not currently in the database
+# TODO: respsonsive webpage
+# TODO: placeholder text full description
+# TODO: Jquery to select the current value in drop down box during edit
 
 @auth.verify_password
 def verify_password(username_or_token, password):
