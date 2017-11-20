@@ -20,7 +20,6 @@ app = Flask(__name__)
 # TODO: API rate limiting?
 # TODO: logout page
 # TODO: on items.html Jquery to change item from (1 items) to (1 item)
-# TODO: deleting items
 # TODO: different pages while logged in
 # TODO: home buttonns on templates?
 # TODO: if <string:cat_name or item_name> results == none : render error template
