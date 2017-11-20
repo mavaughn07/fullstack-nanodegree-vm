@@ -129,20 +129,19 @@ def itemEdit(item_name):
         return render_template('editItem.html', item = editItem, categories=categories)
 
 @app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
-@auth.login_required
+# @auth.login_required
 def itemDelete(item_name):
     #this page will be for deleting an ITEM
 
-
     deleteItem = session.query(Item).filter_by(name = item_name).first()
-    deleteItem = item
+    category = session.query(Category).filter_by(name=deleteItem.category.name).first()
 
     if request.method == 'POST':
         session.delete(deleteItem)
         session.commit()
-        return redirect(url_for('category', cat_name = category))
+        return redirect(url_for('viewIndividual', cat_name = category.name))
     else:
-        return render_template('deleteItem.html', item_name = item_name)
+        return render_template('deleteItem.html', item = deleteItem)
 
 @app.route('/api.json')
 def apiAll():
