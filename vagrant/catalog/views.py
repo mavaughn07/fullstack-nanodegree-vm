@@ -26,6 +26,7 @@ app = Flask(__name__)
 # TODO: container max-width for templates in place of offset
 # TODO: add message flashing
 # TODO: add verification that item being created is not currently in the database
+# TODO: make pages responsive
 
 @auth.verify_password
 def verify_password(username_or_token, password):
