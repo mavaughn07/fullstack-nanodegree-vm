@@ -1,9 +1,17 @@
-from models import Base, User
 from flask import Flask, jsonify, request, url_for, abort, g, render_template, redirect
+from flask import session as login_session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine, desc
 from models import Base, User, Item, Category
+import json
+import random
+import httplib2
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.client import FlowExchangeError
+import requests
+from flask import make_response
+import string
 #may change models import if database name changes
 
 from flask_httpauth import HTTPBasicAuth
@@ -27,6 +35,11 @@ app = Flask(__name__)
 # TODO: add message flashing
 # TODO: add verification that item being created is not currently in the database
 # TODO: make pages responsive
+# TODO: change templates to extend header https://github.com/udacity/ud330/tree/master/Lesson2/step7/templates
+
+CLIENT_ID = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = "Udacity Catalog App"
 
 @auth.verify_password
 def verify_password(username_or_token, password):
@@ -42,10 +55,9 @@ def verify_password(username_or_token, password):
     return True
 
 # Create anti-forgery state token
-@app.route('/login')
+@app.route('/login', methods=['GET'])
 def showLogin():
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
     # return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
@@ -281,5 +293,5 @@ def apiItem(cat_name,item_name):
 
 if __name__ == '__main__':
     app.debug = True
-    #app.config['SECRET_KEY'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    app.config['SECRET_KEY'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     app.run(host='0.0.0.0', port=5000)
