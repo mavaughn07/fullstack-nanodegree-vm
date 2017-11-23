@@ -35,7 +35,8 @@ app = Flask(__name__)
 # TODO: add message flashing
 # TODO: add verification that item being created is not currently in the database
 # TODO: make pages responsive
-# TODO: change templates to extend header https://github.com/udacity/ud330/tree/master/Lesson2/step7/templates
+# TODO: test new extended headers and main pages
+# TODO: look into changing title on extended pages
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
