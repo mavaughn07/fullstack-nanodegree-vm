@@ -1,53 +1,30 @@
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='styles.css')}}">
-    <meta charset="utf-8">
-    <title>{{category.name}} Items</title>
-  </head>
-  <header>
-    <div class="row">
-      <div class="col-md-8 col-md-offset-1">
-          <h1><b>Catalog App</b></h1>
-      </div>
-      <div class="col-md-1">
-        <h1></h1>
-        <form action="/login" method="get">
-          <button class="btn login" type="submit" name="Login">Login</button>
-        </form>
-      </div>
-    </div>
-
-  </header>
-  <body>
-    <div class="flexible-container">
-      <div class="row col-md-9 col-md-offset-1 main">
-        <div class="col-md-3">
-          <h3><b>Categories</b></h3>
-            {% for c in categories %}
-            <div class="category">
-             <a class="category" href="{{url_for('viewIndividual',
-             cat_name=c.name)}}"><b>{{ c.name }}</b></a>
-            </div>
-
-            {% endfor %}
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="flexible-container">
+  <div class="row col-md-9 col-md-offset-1 main">
+    <div class="col-md-3">
+      <h3><b>Categories</b></h3>
+        {% for c in categories %}
+        <div class="category">
+         <a class="category" href="{{url_for('viewIndividual',
+         cat_name=c.name)}}"><b>{{ c.name }}</b></a>
         </div>
-        <div class="col-md-9">
-         <h3><b>{{category.name}} Items ({{items|length}} items)</b></h3>
-          {% for item in items %}
-          <div class="item">
-           <b>
-            <span>
-             <a class="item" href="{{url_for('viewDescription',
-             cat_name=item.category.name,item_name=item.name)}}">{{item.name}}
-            </a></span>
-           </b>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
+
+        {% endfor %}
     </div>
-  </body>
-</html>
+    <div class="col-md-9">
+     <h3><b>{{category.name}} Items ({{items|length}} items)</b></h3>
+      {% for item in items %}
+      <div class="item">
+       <b>
+        <span>
+         <a class="item" href="{{url_for('viewDescription',
+         cat_name=item.category.name,item_name=item.name)}}">{{item.name}}
+        </a></span>
+       </b>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

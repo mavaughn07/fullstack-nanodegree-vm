@@ -1,51 +1,25 @@
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type=text/css href="{{url_for('static', filename='styles.css')}}">
-    <meta charset="utf-8">
-    <title>{{category.name}}</title>
-  </head>
-  <header>
-    <div class="row">
-      <div class="col-md-8 col-md-offset-1">
-          <h1><b>Catalog App</b></h1>
-      </div>
-      <div class="col-md-1">
-        <h1></h1>
-        <form action="/login" method="get">
-          <button class="btn login" type="submit" name="Login">Login</button>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="flexible-container">
+  <div class="row col-md-9 col-md-offset-1 main">
+    <div class="col-md-11">
+     <h3><b>
+       <span>Create </span>
+       <span>{{category.name}}</span>
+       <span> Item</span> </b></h3>
+      <div class="newItem">
+        <form class="newItem" action="{{url_for('itemCreate',
+        cat_name=category.name)}}" method="POST">
+          <div class="title">
+            Title:<br>
+            <input type="text" name="name"><br><br>
+            Description:<br>
+            <input type="text" name="description"><br><br>
+            <input type="submit" value="Submit">
+          </div>
         </form>
       </div>
     </div>
-
-  </header>
-  <body>
-    <div class="flexible-container">
-      <div class="row col-md-9 col-md-offset-1 main">
-        <div class="col-md-11">
-         <h3><b>
-           <span>Create </span>
-           <span>{{category.name}}</span>
-           <span> Item</span> </b></h3>
-
-          <div class="newItem">
-            <form class="newItem" action="{{url_for('itemCreate',
-            cat_name=category.name)}}" method="POST">
-              <div class="title">
-                Title:<br>
-                <input type="text" name="name"><br><br>
-                Description:<br>
-                <input type="text" name="description"><br><br>
-                <input type="submit" value="Submit">
-              </div>
-            </form>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+  </div>
+</div>
