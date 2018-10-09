@@ -187,7 +187,7 @@ def viewCategories():
     # TODO: One template for username and one without
 
     categories = session.query(Category).all()
-    items = session.query(Item).order_by(desc("id")).limit(10).all()
+    items = session.query(Item).order_by(desc("id")).limit(10).all()    ## TODO: add modified date/created date?
     return render_template('categories.html', categories=categories, latestItems=items)
 
 @app.route('/catalog/<string:cat_name>')
@@ -294,5 +294,5 @@ def apiItem(cat_name,item_name):
 
 if __name__ == '__main__':
     app.debug = True
-    app.config['SECRET_KEY'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    #app.config['SECRET_KEY'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     app.run(host='0.0.0.0', port=5000)
