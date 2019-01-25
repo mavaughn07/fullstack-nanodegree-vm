@@ -26,32 +26,32 @@ session.add(category1)
 session.commit()
 
 item2 = Item(name="Snowboard", description="snowboard desc",
-                     category=category1)
+					 category=category1)
 
 session.add(item2)
 session.commit()
 
 
 item1 = Item(name="Bindings", description="bindings desc",
-                     category=category1)
+					 category=category1)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(name="Wax", description="wax desc",
-                     category=category1)
+					 category=category1)
 
 session.add(item2)
 session.commit()
 
 item3 = Item(name="Boots", description="boots desc",
-                      category=category1)
+					  category=category1)
 
 session.add(item3)
 session.commit()
 
 item4 = Item(name="Snowpants", description="snowpants desc",
-                     category=category1)
+					 category=category1)
 
 session.add(item4)
 session.commit()
@@ -89,25 +89,25 @@ session.commit()
 
 
 item1 = Item(name="Soccerball", description="",
-                     category=category2)
+					 category=category2)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(
-    name="Cleats", description="", category=category2)
+	name="Cleats", description="", category=category2)
 
 session.add(item2)
 session.commit()
 
 item3 = Item(name="Goalie Gloves", description="",
-                     category=category2)
+					 category=category2)
 
 session.add(item3)
 session.commit()
 
 item4 = Item(name="Shinguards", description="",
-                     category=category2)
+					 category=category2)
 
 session.add(item4)
 session.commit()
@@ -133,25 +133,25 @@ session.commit()
 
 
 item1 = Item(name="Bat", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(name="Mitt", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item2)
 session.commit()
 
 item3 = Item(name="Baseball", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item3)
 session.commit()
 
 item4 = Item(name="Batting Helmet", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item4)
 session.commit()
@@ -171,13 +171,13 @@ session.commit()
 
 
 item1 = Item(name="Tennis Racquet", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(name="Tennisball", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item2)
 session.commit()
@@ -215,13 +215,13 @@ session.commit()
 
 
 item1 = Item(name="Basketball", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item1)
 session.commit()
 
 item2 = Item(name="Net", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item2)
 session.commit()
@@ -253,7 +253,7 @@ session.commit()
 
 
 item1 = Item(name="Pads", description="",
-                     category=category1)
+					 category=category1)
 
 session.add(item1)
 session.commit()
