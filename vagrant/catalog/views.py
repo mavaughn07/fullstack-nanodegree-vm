@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, url_for, abort, g, render_template, redirect
+from flask import Flask, jsonify, request, url_for, abort, g, render_template, redirect, flash
 from flask import session as login_session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
@@ -58,7 +58,7 @@ def verify_password(username_or_token, password):
 # Create anti-forgery state token
 @app.route('/login', methods=['GET'])
 def showLogin():
-	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
 	login_session['state'] = state
 	# return "The current session state is %s" % login_session['state']
 	return render_template('login.html', STATE=state)
@@ -160,11 +160,11 @@ def gdisconnect():
 		response = make_response(json.dumps('Current user not connected.'), 401)
 		response.headers['Content-Type'] = 'application/json'
 		return response
-		url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
-		h = httplib2.Http()
-		result = h.request(url, 'GET')[0]
-		print('result is ')
-		print(result)
+	url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+	h = httplib2.Http()
+	result = h.request(url, 'GET')[0]
+	print('result is ')
+	print(result)
 	if result['status'] == '200':
 		del login_session['access_token']
 		del login_session['gplus_id']
