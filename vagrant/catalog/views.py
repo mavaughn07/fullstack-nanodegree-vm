@@ -17,7 +17,7 @@ import string
 from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
 
-engine = create_engine('sqlite:///itemCatalog.db')
+engine = create_engine('sqlite:///itemCatalog.db', connect_args={'check_same_thread': False})
 
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
