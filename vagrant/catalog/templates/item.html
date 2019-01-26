@@ -8,6 +8,11 @@
        				 Description: <span>{{item.description}}</span>
                 </span>
             </div>
+            {% if 'username' in session %}
+            <div>
+                <a href="{{url_for('itemEdit',cat_name=item.category.name,item_name=item.name)}}">Edit</a> |
+                <a href="{{url_for('itemDelete',cat_name=item.category.name,item_name=item.name)}}">Delete</a> {% endif %}
+            </div>
         </div>
     </div>
 </div>
