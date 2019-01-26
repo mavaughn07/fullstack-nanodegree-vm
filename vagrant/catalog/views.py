@@ -293,5 +293,5 @@ def apiItem(cat_name,item_name):
 
 if __name__ == '__main__':
 	app.debug = True
-	#app.config['SECRET_KEY'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+	app.config['SECRET_KEY'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
 	app.run(host='0.0.0.0', port=5000)
