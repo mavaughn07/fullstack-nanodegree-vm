@@ -1,15 +1,14 @@
-{% extends "main.html" %}
-{% block content %}
-{% include "header.html" %}
+{% extends "main.html" %} {% block content %} {% include "header.html" %}
 <div class="flexible-container">
-  <div class="row col-md-9 col-md-offset-1 main">
-    <div class="col-md-11">
-     <h3><b>{{item.name}}</b></h3>
-      <div class="item-description">
-       <span>
-        Description: <span>{{item.description}}</span>
-        </span>
-      </div>
+    <div class="row col-md-9 col-md-offset-1 main">
+        <div class="col-md-11">
+            <h3><b>{{item.name}}</b></h3>
+            <div class="item-description">
+                <span>
+       				 Description: <span>{{item.description}}</span>
+                </span>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+{% endblock %}

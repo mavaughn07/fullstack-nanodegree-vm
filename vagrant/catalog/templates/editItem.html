@@ -1,32 +1,31 @@
-{% extends "main.html" %}
-{% block content %}
-{% include "header.html" %}
+{% extends "main.html" %} {% block content %} {% include "header.html" %}
 <div class="flexible-container">
-  <div class="row col-md-9 col-md-offset-1 main">
-    <div class="col-md-11">
-     <h3><b>
+    <div class="row col-md-9 col-md-offset-1 main">
+        <div class="col-md-11">
+            <h3><b>
        <span>Edit </span>
        <span>{{item.name}}</span>
       </b></h3>
 
-      <div class="editItem">
-        <form class="editItem" action="{{url_for('itemEdit',
+            <div class="editItem">
+                <form class="editItem" action="{{url_for('itemEdit',
         item_name=item.name)}}" method="POST">
 
-            Name:<br>
-            <input type="text" name="name" placeholder={{item.name}}><br><br>
-            Description:<br>
-            <input type="text" name="description" placeholder={{item.description}}><br><br>
-            <select name="category">
+                    Name:<br>
+                    <input type="text" name="name" placeholder={{item.name}}><br><br> Description:
+                    <br>
+                    <input type="text" name="description" placeholder={{item.description}}><br><br>
+                    <select name="category">
               {% for c in categories %}
                 <option value="{{c.name}}">{{c.name}}</option>
               {% endfor %}
             </select>
-            <input type="submit" value="Submit">
-          </div>
-        </form>
+                    <input type="submit" value="Submit">
+            </div>
+            </form>
 
-      </div>
+        </div>
 
     </div>
-  </div>
+</div>
+{% endblock %}

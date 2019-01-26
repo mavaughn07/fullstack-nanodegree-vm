@@ -1,25 +1,24 @@
-{% extends "main.html" %}
-{% block content %}
-{% include "header.html" %}
+{% extends "main.html" %} {% block content %} {% include "header.html" %}
 <div class="flexible-container">
-  <div class="row col-md-9 col-md-offset-1 main">
-    <div class="col-md-11">
-     <h3><b>
+    <div class="row col-md-9 col-md-offset-1 main">
+        <div class="col-md-11">
+            <h3><b>
        <span>Delete the item </span>
        <span>{{item.name}}</span>
        <span>?</span>
       </b></h3>
 
-      <div class="deleteItem">
-        <form class="deleteItem" action="{{url_for('itemDelete',
+            <div class="deleteItem">
+                <form class="deleteItem" action="{{url_for('itemDelete',
         item_name=item.name)}}" method="POST">
 
-            Are you sure you want to delete? <br>
-            <input type="submit" value="Submit">
-          </div>
-        </form>
+                    Are you sure you want to delete? <br>
+                    <input type="submit" value="Submit">
+            </div>
+            </form>
 
-      </div>
+        </div>
 
     </div>
-  </div>
+</div>
+{% endblock %}

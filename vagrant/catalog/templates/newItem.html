@@ -1,25 +1,24 @@
-{% extends "main.html" %}
-{% block content %}
-{% include "header.html" %}
+{% extends "main.html" %} {% block content %} {% include "header.html" %}
 <div class="flexible-container">
-  <div class="row col-md-9 col-md-offset-1 main">
-    <div class="col-md-11">
-     <h3><b>
+    <div class="row col-md-9 col-md-offset-1 main">
+        <div class="col-md-11">
+            <h3><b>
        <span>Create </span>
        <span>{{category.name}}</span>
        <span> Item</span> </b></h3>
-      <div class="newItem">
-        <form class="newItem" action="{{url_for('itemCreate',
+            <div class="newItem">
+                <form class="newItem" action="{{url_for('itemCreate',
         cat_name=category.name)}}" method="POST">
-          <div class="title">
-            Title:<br>
-            <input type="text" name="name"><br><br>
-            Description:<br>
-            <input type="text" name="description"><br><br>
-            <input type="submit" value="Submit">
-          </div>
-        </form>
-      </div>
+                    <div class="title">
+                        Title:<br>
+                        <input type="text" name="name"><br><br> Description:
+                        <br>
+                        <input type="text" name="description"><br><br>
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+{% endblock %}

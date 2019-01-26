@@ -1,32 +1,30 @@
-{% extends "main.html" %}
-{% block content %}
-{% include "header.html" %}
- <div class="flexible-container">
-   <div class="row col-md-9 col-md-offset-1 main">
-     <div class="col-md-3">
-       <h3><b>Categories</b></h3>
-         {% for category in categories %}
-         <div class="category">
-          <a class="category" href="{{url_for('viewIndividual',
+{% extends "main.html" %} {% block content %} {% include "header.html" %}
+<div class="flexible-container">
+    <div class="row col-md-9 col-md-offset-1 main">
+        <div class="col-md-3">
+            <h3><b>Categories</b></h3>
+            {% for category in categories %}
+            <div class="category">
+                <a class="category" href="{{url_for('viewIndividual',
           cat_name=category.name)}}"><b>{{ category.name }}</b></a>
-         </div>
+            </div>
 
-         {% endfor %}
-     </div>
-     <div class="col-md-9">
-       <h3><b>Latest Items</b></h3>
-       {% for item in latestItems %}
-       <div class="item">
-        <b>
+            {% endfor %}
+        </div>
+        <div class="col-md-9">
+            <h3><b>Latest Items</b></h3>
+            {% for item in latestItems %}
+            <div class="item">
+                <b>
          <span>
           <a class="item" href="{{url_for('viewDescription',
           cat_name=item.category.name,item_name=item.name)}}">{{item.name}}
          </a></span>
          <span id="categoryName"> ({{item.category.name}})</span>
         </b>
-       </div>
-       {% endfor %}
-     </div>
-   </div>
- </div>
- {% endblock %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
