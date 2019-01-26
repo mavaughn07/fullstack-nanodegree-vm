@@ -205,7 +205,6 @@ def viewDescription(cat_name,item_name):
 	#this page will be for viewing the description of an items
 	# TODO: One template for username and one without
 
-	category = session.query(Category).filter_by(name=cat_name).first()
 	item = session.query(Item).filter_by(name = item_name).one()
 
 	return render_template('item.html', item = item)
