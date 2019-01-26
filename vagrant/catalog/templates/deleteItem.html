@@ -10,7 +10,7 @@
 
             <div class="deleteItem">
                 <form class="deleteItem" action="{{url_for('itemDelete',
-        item_name=item.name)}}" method="POST">
+        item_name=item.name, cat_name=item.category.name)}}" method="POST">
 
                     Are you sure you want to delete? <br>
                     <input type="submit" value="Submit">
