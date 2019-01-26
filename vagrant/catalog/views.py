@@ -209,7 +209,7 @@ def viewDescription(cat_name,item_name):
 	return render_template('item.html', item = item)
 
 @app.route('/catalog/<string:cat_name>/create', methods=['GET', 'POST'])
-# @auth.login_required
+@auth.login_required
 def itemCreate(cat_name):
 	#this page will be for creating an ITEM
 	category = session.query(Category).filter_by(name = cat_name).first()
@@ -228,7 +228,7 @@ def itemCreate(cat_name):
 		return render_template('newItem.html', category= category)
 
 @app.route('/catalog/<string:cat_name>/<string:item_name>/edit', methods=['GET', 'POST'])
-# @auth.login_required
+@auth.login_required
 def itemEdit(cat_name, item_name):
 	#this page will be for editing an ITEM
 
@@ -250,7 +250,7 @@ def itemEdit(cat_name, item_name):
 		return render_template('editItem.html', item=editItem, categories=categories)
 
 @app.route('/catalog/<string:cat_name>/<string:item_name>/delete', methods=['GET', 'POST'])
-# @auth.login_required
+@auth.login_required
 def itemDelete(cat_name, item_name):
 	#this page will be for deleting an ITEM
 
