@@ -8,17 +8,21 @@
       </b></h3>
 
             <div class="editItem">
-                <form class="editItem" action="{{url_for('itemEdit',
-        item_name=item.name)}}" method="POST">
+                <form class="editItem" action="{{url_for('itemEdit',cat_name=item.category.name,item_name=item.name)}}" method="POST">
 
                     Name:<br>
                     <input type="text" name="name" placeholder={{item.name}}><br><br> Description:
                     <br>
                     <input type="text" name="description" placeholder={{item.description}}><br><br>
                     <select name="category">
-              {% for c in categories %}
-                <option value="{{c.name}}">{{c.name}}</option>
-              {% endfor %}
+			{% for c in categories %}
+				{% if c.name == item.category.name %}
+					<option selected value="{{c.name}}">{{c.name}}</option>
+				{% else %}
+					<option value="{{c.name}}">{{c.name}}</option>
+				{% endif %}
+
+			{% endfor %}
             </select>
                     <input type="submit" value="Submit">
             </div>
