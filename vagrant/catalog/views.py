@@ -24,8 +24,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 
-# TODO: Google OAUTH
-# TODO: API rate limiting?
 # TODO: logout page
 # TODO: on items.html Jquery to change item from (1 items) to (1 item)
 # TODO: different pages while logged in
@@ -181,6 +179,7 @@ def gdisconnect():
 
 @app.route('/')
 @app.route('/catalog')
+@app.route('/catalog/')
 def viewCategories():
 	#this is the main page of the app that displays a list of categories and the latest items added.
 	# TODO: One template for username and one without
@@ -230,9 +229,9 @@ def itemCreate(cat_name):
 	else:
 		return render_template('newItem.html', category= category)
 
-@app.route('/catalog/<string:item_name>/edit', methods=['GET', 'POST'])
+@app.route('/catalog/<string:cat_name>/<string:item_name>/edit', methods=['GET', 'POST'])
 # @auth.login_required
-def itemEdit(item_name):
+def itemEdit(cat_name, item_name):
 	#this page will be for editing an ITEM
 
 	editItem = session.query(Item).filter_by(name = item_name).first()
@@ -250,11 +249,11 @@ def itemEdit(item_name):
 		session.commit()
 		return redirect(url_for('viewIndividual', cat_name = category.name))
 	else:
-		return render_template('editItem.html', item = editItem, categories=categories)
+		return render_template('editItem.html', item=editItem, categories=categories, cat=editItem.category)
 
-@app.route('/catalog/<string:item_name>/delete', methods=['GET', 'POST'])
+@app.route('/catalog/<string:cat_name>/<string:item_name>/delete', methods=['GET', 'POST'])
 # @auth.login_required
-def itemDelete(item_name):
+def itemDelete(cat_name, item_name):
 	#this page will be for deleting an ITEM
 
 	deleteItem = session.query(Item).filter_by(name = item_name).first()
