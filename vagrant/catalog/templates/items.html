@@ -12,7 +12,8 @@
             {% endfor %}
         </div>
         <div class="col-md-9">
-            {% if items|length==1 %}
+            {% if 'username' in session %}
+            <a href="{{url_for('itemCreate', cat_name=category.name)}}">Add Item</a> {% endif %} {% if items|length==1 %}
             <h3><b>{{category.name}} Items ({{items|length}} item)</b></h3>
             {% else %}
             <h3><b>{{category.name}} Items ({{items|length}} items)</b></h3>
