@@ -25,7 +25,6 @@ session = DBSession()
 app = Flask(__name__)
 
 # TODO: logout page
-# TODO: on items.html Jquery to change item from (1 items) to (1 item)
 # TODO: different pages while logged in
 # TODO: home buttonns on templates?
 # TODO: if <string:cat_name or item_name> results == none : render error template
@@ -33,7 +32,6 @@ app = Flask(__name__)
 # TODO: add message flashing
 # TODO: add verification that item being created is not currently in the database
 # TODO: make pages responsive
-# TODO: test new extended headers and main pages
 # TODO: look into changing title on extended pages
 
 CLIENT_ID = json.loads(

@@ -12,8 +12,11 @@
             {% endfor %}
         </div>
         <div class="col-md-9">
+            {% if items|length==1 %}
+            <h3><b>{{category.name}} Items ({{items|length}} item)</b></h3>
+            {% else %}
             <h3><b>{{category.name}} Items ({{items|length}} items)</b></h3>
-            {% for item in items %}
+            {% endif %} {% for item in items %}
             <div class="item">
                 <b>
         <span>
