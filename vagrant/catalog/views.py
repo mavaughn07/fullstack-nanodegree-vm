@@ -12,7 +12,6 @@ from oauth2client.client import FlowExchangeError
 import requests
 from flask import make_response
 import string
-#may change models import if database name changes
 
 from flask_httpauth import HTTPBasicAuth
 auth = HTTPBasicAuth()
@@ -24,15 +23,11 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 
-# TODO: logout page
-# TODO: different pages while logged in
-# TODO: home buttonns on templates?
 # TODO: if <string:cat_name or item_name> results == none : render error template
 # TODO: container max-width for templates in place of offset
-# TODO: add message flashing
 # TODO: add verification that item being created is not currently in the database
 # TODO: make pages responsive
-# TODO: look into changing title on extended pages
+# TODO: Add in non gmail logins
 
 CLIENT_ID = json.loads(
 	open('client_secrets.json', 'r').read())['web']['client_id']
@@ -40,16 +35,6 @@ APPLICATION_NAME = "Udacity Catalog App"
 
 @auth.verify_password
 def verify_password(username_or_token, password):
-	#Try to see if it's a token first
-	# user_id = User.verify_auth_token(username_or_token)
-	# if user_id:
-	# 	user = session.query(User).filter_by(id = user_id).one()
-	# else:
-	# 	user = session.query(User).filter_by(username = username_or_token).first()
-	# 	if not user or not user.verify_password(password):
-	# 		return False
-	# g.user = user
-	# return True
 	if 'username' in login_session:
 		return True
 	return False
@@ -59,7 +44,6 @@ def verify_password(username_or_token, password):
 def showLogin():
 	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(32))
 	login_session['state'] = state
-	# return "The current session state is %s" % login_session['state']
 	return render_template('login.html', STATE=state)
 
 @app.route('/gconnect', methods=['POST'])
@@ -144,9 +128,8 @@ def gconnect():
 	flash("You are now logged in as %s" % login_session['username'])
 	return output
 
-	# DISCONNECT - Revoke a current user's token and reset their login_session
-
-
+	
+# DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/gdisconnect')
 def gdisconnect():
 	access_token = login_session['access_token']
@@ -184,10 +167,9 @@ def gdisconnect():
 @app.route('/catalog/')
 def viewCategories():
 	#this is the main page of the app that displays a list of categories and the latest items added.
-	# TODO: One template for username and one without
 
 	categories = session.query(Category).all()
-	items = session.query(Item).order_by(desc("id")).limit(10).all()    ## TODO: add modified date/created date?
+	items = session.query(Item).order_by(desc("id")).limit(10).all()
 	return render_template('categories.html', categories=categories, latestItems=items)
 
 @app.route('/catalog/<string:cat_name>')
@@ -200,12 +182,10 @@ def viewIndividual(cat_name):
 	items = session.query(Item).filter_by(category_id = category.id).all()
 
 	return render_template('items.html', category = category, items = items, categories = categories)
-	# TODO: One template for username and one without
 
 @app.route('/catalog/<string:cat_name>/<string:item_name>')
 def viewDescription(cat_name,item_name):
 	#this page will be for viewing the description of an items
-	# TODO: One template for username and one without
 
 	item = session.query(Item).filter_by(name = item_name).one()
 
@@ -225,8 +205,8 @@ def itemCreate(cat_name):
 			return redirect(url_for('viewIndividual', cat_name = category.name))
 		else:
 
-			# TODO: error ridirect to page
-			return None
+			flash("Error creating item, please try again")
+			return redirect(url_for('viewCategories'))
 	else:
 		return render_template('newItem.html', category= category)
 
