@@ -248,7 +248,7 @@ def itemEdit(cat_name, item_name):
 		session.commit()
 		return redirect(url_for('viewIndividual', cat_name = category.name))
 	else:
-		return render_template('editItem.html', item=editItem, categories=categories, cat=editItem.category)
+		return render_template('editItem.html', item=editItem, categories=categories)
 
 @app.route('/catalog/<string:cat_name>/<string:item_name>/delete', methods=['GET', 'POST'])
 # @auth.login_required
