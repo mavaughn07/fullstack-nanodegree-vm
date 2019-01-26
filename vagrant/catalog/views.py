@@ -113,8 +113,11 @@ def gconnect():
 	answer = requests.get(userinfo_url, params=params)
 
 	data = answer.json()
-
-	login_session['username'] = data['name']
+	print(data)
+	if 'name' in data:
+		login_session['username'] = data['name']
+	else:
+		login_session['username'] = data['email']
 	login_session['picture'] = data['picture']
 	login_session['email'] = data['email']
 
