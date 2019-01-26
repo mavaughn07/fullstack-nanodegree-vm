@@ -1,6 +1,5 @@
-fullstack-nanodegree-vm
-=============
+# Udacity Project 4 Item Catalog
 
-Common code for the Relational Databases and Full Stack Fundamentals courses
+## Setup
 
-item catalog project located under /vagrant/catalog folder
+### Future Features
