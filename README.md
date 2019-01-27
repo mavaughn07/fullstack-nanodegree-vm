@@ -21,6 +21,10 @@ localhost:5000/catalog/[Category Name]/[Item Name]
 /edit and /delete can be added to the end of the link while logged in to access those features
 /create can be used in the place of where catalog is to add an item to the category (without an item name)
 
+localhost:500/api.json will return all info
+localhost:5000/api/[Category Name].json will return all category information
+localhost:5000/api/[Category Name]/[Item Name] will return individual item information
+
 ### Planned Future Features
 * Facebook and email login
 
