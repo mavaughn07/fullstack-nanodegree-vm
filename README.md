@@ -14,6 +14,8 @@
 * Run python3 views.py
 * In your browser open localhost:5000
 
+* A prebuilt database is in the repo, but if you need to rebuild it from scratch, you can run createCatalog.py
+
 Link structure is setup as the below:
 localhost:5000/catalog/[Category Name]/[Item Name]
 /edit and /delete can be added to the end of the link while logged in to access those features
@@ -21,6 +23,5 @@ localhost:5000/catalog/[Category Name]/[Item Name]
 
 ### Planned Future Features
 * Facebook and email login
-* 
 
 Note: Item descriptions were pulled from semi-relevant Wikipedia articles
