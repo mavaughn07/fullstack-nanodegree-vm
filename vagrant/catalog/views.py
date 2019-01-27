@@ -121,6 +121,13 @@ def gconnect():
         login_session['username'] = data['email']
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
+    # if username does not exit, add to database
+    user = session.query(User).filter_by(username=login_session['username'])\
+                  .first()
+    if user is None:
+        newUser = User(username=login_session['username'])
+        session.add(newUser)
+        session.commit()
 
     output = ''
     output += '<h1>Welcome, '
