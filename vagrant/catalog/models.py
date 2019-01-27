@@ -18,6 +18,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(32), index=True)
     password_hash = Column(String(64))
+    items = relationship("Item", back_populates="user")
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)
@@ -72,7 +73,7 @@ class Item(Base):
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship("Category", back_populates="items")
     user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
+    user = relationship("User", back_populates="items")
 
     @property
     def serialize(self):
