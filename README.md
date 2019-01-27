@@ -27,5 +27,6 @@ localhost:5000/api/[Category Name]/[Item Name] will return individual item infor
 
 ### Planned Future Features
 * Facebook and email login
+* Make pages look better on mobile
 
 Note: Item descriptions were pulled from semi-relevant Wikipedia articles

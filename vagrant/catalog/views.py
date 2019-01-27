@@ -23,7 +23,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 
-# TODO: container max-width for templates in place of offset
 # TODO: make pages responsive
 # TODO: Add in non gmail logins
 
