@@ -271,6 +271,10 @@ def itemEdit(cat_name, item_name):
         session.add(editItem)
         session.commit()
         return redirect(url_for('viewIndividual', cat_name=category.name))
+    elif editItem.user.username != login_session['username']:
+        flash("""You are not the owner of this item, please login or use add 
+              item instead""")
+        return redirect(url_for('viewIndividual', cat_name=category.name))
     else:
         return render_template('editItem.html', item=editItem,
                                categories=categories)
@@ -294,6 +298,10 @@ def itemDelete(cat_name, item_name):
     if request.method == 'POST':
         session.delete(deleteItem)
         session.commit()
+        return redirect(url_for('viewIndividual', cat_name=category.name))
+    elif deleteItem.user.username != login_session['username']:
+        flash("""You are not the owner of this item, please login or use add 
+              item instead""")
         return redirect(url_for('viewIndividual', cat_name=category.name))
     else:
         return render_template('deleteItem.html', item=deleteItem)
