@@ -181,8 +181,10 @@ def viewIndividual(cat_name):
 @app.route('/catalog/<string:cat_name>/<string:item_name>')
 def viewDescription(cat_name,item_name):
 	#this page will be for viewing the description of an items
-
-	item = session.query(Item).filter_by(name = item_name).one()
+	category = session.query(Category).filter_by(name = cat_name).first()
+	if category == None:
+		return render_template('error.html')
+	item = session.query(Item).filter_by(name=item_name, category=category).first()
 	if item == None:
 		return render_template('error.html')
 
@@ -213,8 +215,11 @@ def itemCreate(cat_name):
 @auth.login_required
 def itemEdit(cat_name, item_name):
 	#this page will be for editing an ITEM
+	category = session.query(Category).filter_by(name=cat_name).first()
+	if category == None:
+		return render_template('error.html')
 
-	editItem = session.query(Item).filter_by(name = item_name).first()
+	editItem = session.query(Item).filter_by(name = item_name, category = category).first()
 	if editItem == None:
 		return render_template('error.html')
 	categories = session.query(Category).all()
@@ -238,11 +243,12 @@ def itemEdit(cat_name, item_name):
 def itemDelete(cat_name, item_name):
 	#this page will be for deleting an ITEM
 
-	deleteItem = session.query(Item).filter_by(name = item_name).first()
-	if deleteItem == None:
-		return render_template('error.html')
-	category = session.query(Category).filter_by(name=deleteItem.category.name).first()
+	category = session.query(Category).filter_by(name=cat_name).first()
 	if category == None:
+		return render_template('error.html')
+
+	deleteItem = session.query(Item).filter_by(name=item_name, category=category).first()	
+	if deleteItem == None:
 		return render_template('error.html')
 
 	if request.method == 'POST':
@@ -271,7 +277,7 @@ def apiCategory(cat_name):
 def apiItem(cat_name,item_name):
 
 	category = session.query(Category).filter_by(name = cat_name).first()
-	item = session.query(Item).filter_by(category_id = category.id).all()
+	item = session.query(Item).filter_by(category_id = category.id).first()
 
 	return jsonify(item = item.serialize)
 
