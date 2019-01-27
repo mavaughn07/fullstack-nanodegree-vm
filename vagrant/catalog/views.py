@@ -24,7 +24,6 @@ session = DBSession()
 app = Flask(__name__)
 
 # TODO: container max-width for templates in place of offset
-# TODO: add verification that item being created is not currently in the database
 # TODO: make pages responsive
 # TODO: Add in non gmail logins
 
@@ -198,6 +197,9 @@ def itemCreate(cat_name):
 	if category == None:
 		return render_template('error.html')
 	if request.method == 'POST':
+		if session.query(Item).filter_by(name=request.form['name'], category=category).first() != None:
+			flash("Item is already in category, please use edit")
+			return redirect(url_for('viewIndividual', cat_name=category.name))
 		if request.form['name'] and request.form['description'] and category.name:
 			newItem = Item(name=request.form['name'],
 					description=request.form['description'], category=category)
