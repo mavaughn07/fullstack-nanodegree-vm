@@ -272,7 +272,7 @@ def itemEdit(cat_name, item_name):
         session.commit()
         return redirect(url_for('viewIndividual', cat_name=category.name))
     elif editItem.user.username != login_session['username']:
-        flash("""You are not the owner of this item, please login or use add 
+        flash("""You are not the owner of this item, please login or use add
               item instead""")
         return redirect(url_for('viewIndividual', cat_name=category.name))
     else:
@@ -300,7 +300,7 @@ def itemDelete(cat_name, item_name):
         session.commit()
         return redirect(url_for('viewIndividual', cat_name=category.name))
     elif deleteItem.user.username != login_session['username']:
-        flash("""You are not the owner of this item, please login or use add 
+        flash("""You are not the owner of this item, please login or use add
               item instead""")
         return redirect(url_for('viewIndividual', cat_name=category.name))
     else:
