@@ -18,6 +18,10 @@ DBSession = sessionmaker(bind=engine)
 # session.rollback()
 session = DBSession()
 
+username = "Max Vaughn"
+user1 = User(username="Max Vaughn")
+session.add(user1)
+session.commit()
 
 category1 = Category(name="Snowboarding")
 
@@ -37,7 +41,7 @@ item2 = Item(name="Snowboard", description="""Snowboards are boards where both
     feet of a snowboarder, who generally rides in an upright position. These
     types of boards are commonly used by people at ski hills or resorts for
     leisure, entertainment, and competitive purposes in the activity called
-    snowboarding.""", category=category1)
+    snowboarding.""", category=category1, user=user1)
 
 session.add(item2)
 session.commit()
@@ -52,7 +56,7 @@ item1 = Item(name="Bindings", description="""Bindings are separate components
     called Infinite channel system uses two screws, both on the outsides of
     the binding. There are several types of bindings. Strap-in, step-in, and
     hybrid bindings are used by most recreational riders and all freestyle
-    riders.""", category=category1)
+    riders.""", category=category1, user=user1)
 
 session.add(item1)
 session.commit()
@@ -69,7 +73,7 @@ item2 = Item(name="Wax", description="""Ski wax is a material applied to the
     snow. Glide wax is selected to minimize sliding friction for both alpine
     and cross-country skiing. Grip wax (also called 'kick wax') provides
     on-snow traction for cross-country skiers, as they stride forward using
-    classic technique.""", category=category1)
+    classic technique.""", category=category1, user=user1)
 
 session.add(item2)
 session.commit()
@@ -82,7 +86,8 @@ item3 = Item(name="Boots", description="""Snowboard boots are mostly
     looking for a good fit, flex, and looks. Boots can have different features
     such as lacing styles, heat molding liners, and gel padding that the
     snowboarder also might be looking for. Tradeoffs include rigidity versus
-    comfort, and built in forward lean, versus comfort.""", category=category1)
+    comfort, and built in forward lean, versus comfort.""",
+             category=category1, user=user1)
 
 session.add(item3)
 session.commit()
@@ -90,7 +95,8 @@ session.commit()
 item4 = Item(name="Snowpants", description="""Ski pants, or salopettes, when
     part of a two-piece ski suit, is usually made in the same fabric and color
     as the corresponding ski jacket. It is sometimes in the form of
-    bib-and-brace and the jacket is worn over it.""", category=category1)
+    bib-and-brace and the jacket is worn over it.""",
+             category=category1, user=user1)
 
 session.add(item4)
 session.commit()
@@ -110,7 +116,8 @@ item1 = Item(name="Soccer Ball", description="""A football, soccer ball, or
     are specified by Law 2 of the Laws of the Game maintained by the
     International Football Association Board. Additional, more stringent,
     standards are specified by FIFA and subordinate governing bodies for the
-    balls used in the competitions they sanction.""", category=category2)
+    balls used in the competitions they sanction.""",
+             category=category2, user=user1)
 
 session.add(item1)
 session.commit()
@@ -120,7 +127,7 @@ item2 = Item(name="Cleats", description="""Cleats or studs are protrusions on
     additional traction on a soft or slippery surface. They can be conical or
     blade-like in shape, and made of plastic, rubber or metal. The type worn
     depends on the environment of play, whether it be grass, ice, artificial
-    turf, or other grounds.""", category=category2)
+    turf, or other grounds.""", category=category2, user=user1)
 
 session.add(item2)
 session.commit()
@@ -129,7 +136,7 @@ item3 = Item(name="Goalie Gloves", description="""There are no other specific
     requirements, but goalkeepers are usually allowed to wear additional
     protective gear such as padded clothing. Most goalkeepers also wear
     gloves to protect their hands and enhance their grip of the ball.""",
-             category=category2)
+             category=category2, user=user1)
 
 session.add(item3)
 session.commit()
@@ -140,7 +147,7 @@ item4 = Item(name="Shinguards", description="""A shin guard or shin pad is a
     football, baseball, ice hockey, field hockey, lacrosse, cricket, mountain
     bike trials, and other sports. This is due to either being required by
     the rules/laws of the sport or worn voluntarily by the participants
-    for protective measures.""", category=category2)
+    for protective measures.""", category=category2, user=user1)
 
 session.add(item4)
 session.commit()
@@ -164,7 +171,7 @@ item1 = Item(name="Bat", description="""Four historically significant
     than 42 inches(1.067 m) in length. Although historically bats approaching
     3 pounds(1.4 kg) were swung,  today bats of 33 ounces(0.94 kg) are
     common, topping out at 34 ounces(0.96 kg) to 36 ounces(1.0 kg).""",
-             category=category1)
+             category=category1, user=user1)
 
 session.add(item1)
 session.commit()
@@ -177,7 +184,8 @@ item2 = Item(name="Mitt", description="""A baseball glove or mitt is a large
     glove that fits on the left hand—used by a right-handed thrower—is called
     a right-handed(RH) or 'right-hand throw' (RHT) glove. Conversely, a
     left-handed glove(LH or LHT) is worn on the right hand, allowing the
-    player to throw the ball with the left hand.""", category=category1)
+    player to throw the ball with the left hand.""",
+             category=category1, user=user1)
 
 session.add(item2)
 session.commit()
@@ -190,7 +198,7 @@ item3 = Item(name="Baseball", description="""A baseball is a ball used in the
     (​2 55⁄64–​2 15⁄16 in. or 73–75 mm in diameter), and masses from 5 to
     5​1⁄4 oz. (142 to 149 g). The yarn or string used to wrap the baseball
     can be up to one mile (1.6 km) in length. Some are wrapped in a
-    plastic-like covering.""", category=category1)
+    plastic-like covering.""", category=category1, user=user1)
 
 session.add(item3)
 session.commit()
@@ -200,7 +208,7 @@ item4 = Item(name="Batting Helmet", description="""A batting helmet is worn
     the batter's head from errant pitches thrown by the pitcher. A batter who
     is 'hit by pitch, ' due to an inadvertent wild pitch or a pitcher's
     purposeful attempt to hit him, may be seriously, even fatally,
-    injured.""", category=category1)
+    injured.""", category=category1, user=user1)
 
 session.add(item4)
 session.commit()
@@ -217,7 +225,7 @@ item1 = Item(name="Tennis Racket", description="""A racket or racquet is a
     for striking a ball or shuttlecock in games such as squash, tennis,
     racquetball, and badminton. Collectively, these games are known as racket
     sports. Racket design and manufacturing has changed considerably over
-    the centuries.""", category=category1)
+    the centuries.""", category=category1, user=user1)
 
 session.add(item1)
 session.commit()
@@ -227,7 +235,7 @@ item2 = Item(name="Tennis Ball", description="""A tennis ball is a ball
     major sporting events, but in recreational play can be virtually any
     color. Tennis balls are covered in a fibrous felt which modifies their
     aerodynamic properties, and each has a white curvilinear oval covering
-    it.""", category=category1)
+    it.""", category=category1, user=user1)
 
 session.add(item2)
 session.commit()
@@ -251,7 +259,7 @@ item1 = Item(name="Basketball", description="""A basketball is a spherical
     circumference and for the Women's National Basketball Association (WNBA),
     a maximum circumference of 29 inches (74 cm). High school and junior
     leagues normally use NCAA, NBA or WNBA sized balls.""",
-             category=category1)
+             category=category1, user=user1)
 
 session.add(item1)
 session.commit()
@@ -266,7 +274,7 @@ item2 = Item(name="Net", description="""The basket is a steel rim 18 inches
     is possible in the dimensions of the court and backboard, it is
     considered important for the basket to be of the correct height – a rim
     that is off by just a few inches can have an adverse effect on
-    shooting.""", category=category1)
+    shooting.""", category=category1, user=user1)
 
 session.add(item2)
 session.commit()
@@ -287,7 +295,8 @@ item1 = Item(name="Pads", description="""Shoulder pads are a piece of
     rather than being worn as a separate piece of equipment.  Allegedly Pop
     Warner was the first to have his players wear shoulder pads. When he was
     coaching at the Carlisle Indian Industrial School, he was the first one
-    to use pads made of fiber rather than cotton.""", category=category1)
+    to use pads made of fiber rather than cotton.""",
+             category=category1, user=user1)
 
 session.add(item1)
 session.commit()
