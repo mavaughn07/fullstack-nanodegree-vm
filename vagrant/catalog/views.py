@@ -23,7 +23,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 app = Flask(__name__)
 
-# TODO: if <string:cat_name or item_name> results == none : render error template
 # TODO: container max-width for templates in place of offset
 # TODO: add verification that item being created is not currently in the database
 # TODO: make pages responsive
@@ -173,6 +172,8 @@ def viewIndividual(cat_name):
 
 	categories = session.query(Category).all()
 	category = session.query(Category).filter_by(name = cat_name).first()
+	if category == None:
+		return render_template('error.html')
 	items = session.query(Item).filter_by(category_id = category.id).all()
 
 	return render_template('items.html', category = category, items = items, categories = categories)
@@ -182,6 +183,8 @@ def viewDescription(cat_name,item_name):
 	#this page will be for viewing the description of an items
 
 	item = session.query(Item).filter_by(name = item_name).one()
+	if item == None:
+		return render_template('error.html')
 
 	return render_template('item.html', item = item)
 
@@ -190,6 +193,8 @@ def viewDescription(cat_name,item_name):
 def itemCreate(cat_name):
 	#this page will be for creating an ITEM
 	category = session.query(Category).filter_by(name = cat_name).first()
+	if category == None:
+		return render_template('error.html')
 	if request.method == 'POST':
 		if request.form['name'] and request.form['description'] and category.name:
 			newItem = Item(name=request.form['name'],
@@ -210,6 +215,8 @@ def itemEdit(cat_name, item_name):
 	#this page will be for editing an ITEM
 
 	editItem = session.query(Item).filter_by(name = item_name).first()
+	if editItem == None:
+		return render_template('error.html')
 	categories = session.query(Category).all()
 
 	if request.method == 'POST':
@@ -232,7 +239,11 @@ def itemDelete(cat_name, item_name):
 	#this page will be for deleting an ITEM
 
 	deleteItem = session.query(Item).filter_by(name = item_name).first()
+	if deleteItem == None:
+		return render_template('error.html')
 	category = session.query(Category).filter_by(name=deleteItem.category.name).first()
+	if category == None:
+		return render_template('error.html')
 
 	if request.method == 'POST':
 		session.delete(deleteItem)
