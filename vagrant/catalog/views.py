@@ -228,9 +228,11 @@ def itemCreate(cat_name):
             return redirect(url_for('viewIndividual', cat_name=category.name))
         if (request.form['name'] and request.form['description'] and
            category.name):
+            user = session.query(User)\
+                          .filter_by(username=login_session['username']).one()
             newItem = Item(name=request.form['name'],
                            description=request.form['description'],
-                           category=category)
+                           category=category, user=user)
             session.add(newItem)
             session.commit()
             return redirect(url_for('viewIndividual', cat_name=category.name))
